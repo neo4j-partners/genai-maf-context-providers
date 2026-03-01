@@ -20,7 +20,7 @@ provider = Neo4jContextProvider(
     password=neo4j_settings.get_password(),
     index_name=neo4j_settings.fulltext_index_name,
     index_type="fulltext",
-    top_k=3,
+    top_k=5,
     context_prompt=(
         "## Knowledge Graph Context\n"
         "Use the following information from the knowledge graph "
@@ -31,33 +31,30 @@ provider = Neo4jContextProvider(
 
 # tag::agent[]
 async def main():
-    await provider.__aenter__()
+    async with provider:
+        client = OpenAIResponsesClient()
 
-    client = OpenAIResponsesClient()
+        agent = client.as_agent(
+            name="fulltext-agent",
+            instructions=(
+                "You are a helpful assistant that answers questions about "
+                "movies using the provided knowledge graph context. "
+                "Be concise and cite specific information from the context "
+                "when available."
+            ),
+            context_providers=[provider],
+        )
 
-    agent = client.as_agent(
-        name="fulltext-agent",
-        instructions=(
-            "You are a helpful assistant that answers questions about "
-            "movies using the provided knowledge graph context. "
-            "Be concise and cite specific information from the context "
-            "when available."
-        ),
-        context_providers=[provider],
-    )
+        session = agent.create_session()
+        # end::agent[]
 
-    session = agent.create_session()
-    # end::agent[]
-
-    # tag::run[]
-    query = "Find movies about space exploration"
-    print(f"User: {query}\n")
-    print("Answer: ", end="", flush=True)
-    response = await agent.run(query, session=session)
-    print(response.text)
-    print()
-    # end::run[]
-
-    await provider.__aexit__(None, None, None)
+        # tag::run[]
+        query = "Find movies about space exploration"
+        print(f"User: {query}\n")
+        print("Answer: ", end="", flush=True)
+        response = await agent.run(query, session=session)
+        print(response.text)
+        print()
+        # end::run[]
 
 asyncio.run(main())

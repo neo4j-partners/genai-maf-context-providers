@@ -26,79 +26,74 @@ settings = MemorySettings(
 
 # tag::memory[]
 async def main():
-    # Create memory client
-    memory_client = MemoryClient(settings)
-    await memory_client.__aenter__()
+    async with MemoryClient(settings) as memory_client:
+        # Create unified memory interface
+        session_id = "course-demo"
 
-    # Create unified memory interface
-    session_id = "course-demo"
+        memory = Neo4jMicrosoftMemory.from_memory_client(
+            memory_client=memory_client,
+            session_id=session_id,
+            include_short_term=True,
+            include_long_term=True,
+            include_reasoning=True,
+            extract_entities=True,
+        )
+        # end::memory[]
 
-    memory = Neo4jMicrosoftMemory.from_memory_client(
-        memory_client=memory_client,
-        session_id=session_id,
-        include_short_term=True,
-        include_long_term=True,
-        include_reasoning=True,
-        extract_entities=True,
-    )
-    # end::memory[]
+        # tag::agent[]
+        client = OpenAIResponsesClient()
 
-    # tag::agent[]
-    client = OpenAIResponsesClient()
+        agent = client.as_agent(
+            name="memory-agent",
+            instructions=(
+                "You are a helpful assistant with persistent memory. "
+                "You can remember previous conversations and user "
+                "preferences. When you notice the user expressing "
+                "a preference, acknowledge it."
+            ),
+            context_providers=[memory.context_provider],
+        )
 
-    agent = client.as_agent(
-        name="memory-agent",
-        instructions=(
-            "You are a helpful assistant with persistent memory. "
-            "You can remember previous conversations and user "
-            "preferences. When you notice the user expressing "
-            "a preference, acknowledge it."
-        ),
-        context_providers=[memory.context_provider],
-    )
+        session = agent.create_session()
+        # end::agent[]
 
-    session = agent.create_session()
-    # end::agent[]
+        # tag::run[]
+        queries = [
+            "Hi! I'm interested in learning about Apple's products.",
+            "What about their risk factors?",
+            "Can you remind me what we discussed about Apple?",
+        ]
 
-    # tag::run[]
-    queries = [
-        "Hi! I'm interested in learning about Apple's products.",
-        "What about their risk factors?",
-        "Can you remind me what we discussed about Apple?",
-    ]
+        for query in queries:
+            print(f"User: {query}\n")
+            print("Answer: ", end="", flush=True)
+            response = await agent.run(query, session=session)
+            print(response.text)
+            print("\n" + "-" * 50 + "\n")
+        # end::run[]
 
-    for query in queries:
-        print(f"User: {query}\n")
-        print("Answer: ", end="", flush=True)
-        response = await agent.run(query, session=session)
-        print(response.text)
-        print("\n" + "-" * 50 + "\n")
-    # end::run[]
+        # tag::search[]
+        results = await memory.search_memory(
+            query="Apple products and risks",
+            include_messages=True,
+            include_entities=True,
+            include_preferences=True,
+            limit=5,
+        )
 
-    # tag::search[]
-    results = await memory.search_memory(
-        query="Apple products and risks",
-        include_messages=True,
-        include_entities=True,
-        include_preferences=True,
-        limit=5,
-    )
+        print("=== Memory Search Results ===\n")
 
-    print("=== Memory Search Results ===\n")
+        if results.get("messages"):
+            print(f"Messages found: {len(results['messages'])}")
+            for msg in results["messages"][:3]:
+                print(f"  [{msg['role']}] {msg['content'][:100]}...")
+            print()
 
-    if results.get("messages"):
-        print(f"Messages found: {len(results['messages'])}")
-        for msg in results["messages"][:3]:
-            print(f"  [{msg['role']}] {msg['content'][:100]}...")
-        print()
-
-    if results.get("entities"):
-        print(f"Entities found: {len(results['entities'])}")
-        for entity in results["entities"][:5]:
-            print(f"  {entity['name']} ({entity['type']})")
-        print()
-    # end::search[]
-
-    await memory_client.__aexit__(None, None, None)
+        if results.get("entities"):
+            print(f"Entities found: {len(results['entities'])}")
+            for entity in results["entities"][:5]:
+                print(f"  {entity['name']} ({entity['type']})")
+            print()
+        # end::search[]
 
 asyncio.run(main())

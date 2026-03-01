@@ -39,33 +39,30 @@ provider = Neo4jContextProvider(
 
 # tag::agent[]
 async def main():
-    await provider.__aenter__()
+    async with provider:
+        client = OpenAIResponsesClient()
 
-    client = OpenAIResponsesClient()
+        agent = client.as_agent(
+            name="vector-agent",
+            instructions=(
+                "You are a helpful assistant that answers questions about "
+                "movies using the provided semantic search context. "
+                "Be concise and accurate. When the context contains "
+                "relevant information, cite it in your response."
+            ),
+            context_providers=[provider],
+        )
 
-    agent = client.as_agent(
-        name="vector-agent",
-        instructions=(
-            "You are a helpful assistant that answers questions about "
-            "movies using the provided semantic search context. "
-            "Be concise and accurate. When the context contains "
-            "relevant information, cite it in your response."
-        ),
-        context_providers=[provider],
-    )
+        session = agent.create_session()
+        # end::agent[]
 
-    session = agent.create_session()
-    # end::agent[]
-
-    # tag::run[]
-    query = "Find me movies about time travel"
-    print(f"User: {query}\n")
-    print("Answer: ", end="", flush=True)
-    response = await agent.run(query, session=session)
-    print(response.text)
-    print()
-    # end::run[]
-
-    await provider.__aexit__(None, None, None)
+        # tag::run[]
+        query = "Find me movies about time travel"
+        print(f"User: {query}\n")
+        print("Answer: ", end="", flush=True)
+        response = await agent.run(query, session=session)
+        print(response.text)
+        print()
+        # end::run[]
 
 asyncio.run(main())

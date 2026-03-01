@@ -19,14 +19,11 @@ embedder = OpenAIEmbeddings(model="text-embedding-ada-002")
 # Appended after vector search: YIELD node, score
 RETRIEVAL_QUERY = """
 MATCH (node)-[:IN_GENRE]->(g:Genre)
-WITH node, score,
-     collect(DISTINCT g.name) AS genres
-OPTIONAL MATCH (p:Person)-[r:ACTED_IN]->(node)
-WITH node, score, genres,
-     collect(DISTINCT p.name)[0..5] AS actors
-OPTIONAL MATCH (p:Person)-[:DIRECTED]->(node)
-WITH node, score, genres, actors,
-     collect(DISTINCT p.name)[0..3] AS directors
+WITH node, score, collect(DISTINCT g.name) AS genres
+OPTIONAL MATCH (p:Person)-[:ACTED_IN]->(node)
+WITH node, score, genres, collect(DISTINCT p.name)[0..5] AS actors
+OPTIONAL MATCH (d:Person)-[:DIRECTED]->(node)
+WITH node, score, genres, actors, collect(DISTINCT d.name) AS directors
 WHERE score IS NOT NULL
 RETURN
     node.plot AS text,
@@ -61,38 +58,35 @@ provider = Neo4jContextProvider(
 
 # tag::agent[]
 async def main():
-    await provider.__aenter__()
+    async with provider:
+        client = OpenAIResponsesClient()
 
-    client = OpenAIResponsesClient()
+        agent = client.as_agent(
+            name="graph-enriched-agent",
+            instructions=(
+                "You are a helpful assistant that answers questions about "
+                "movies using graph-enriched context. Your context includes:\n"
+                "- Semantic search matches from movie plots\n"
+                "- Movie titles and release years\n"
+                "- Genres the movie belongs to\n"
+                "- Actors who appeared in the movie\n"
+                "- Directors of the movie\n\n"
+                "When answering, cite the movie title, relevant actors, and genres. "
+                "Be specific and reference the enriched graph data."
+            ),
+            context_providers=[provider],
+        )
 
-    agent = client.as_agent(
-        name="graph-enriched-agent",
-        instructions=(
-            "You are a helpful assistant that answers questions about "
-            "movies using graph-enriched context. Your context includes:\n"
-            "- Semantic search matches from movie plots\n"
-            "- Movie titles and release years\n"
-            "- Genres the movie belongs to\n"
-            "- Actors who appeared in the movie\n"
-            "- Directors of the movie\n\n"
-            "When answering, cite the movie title, relevant actors, and genres. "
-            "Be specific and reference the enriched graph data."
-        ),
-        context_providers=[provider],
-    )
+        session = agent.create_session()
+        # end::agent[]
 
-    session = agent.create_session()
-    # end::agent[]
-
-    # tag::run[]
-    query = "What are some good science fiction movies and who stars in them?"
-    print(f"User: {query}\n")
-    print("Answer: ", end="", flush=True)
-    response = await agent.run(query, session=session)
-    print(response.text)
-    print()
-    # end::run[]
-
-    await provider.__aexit__(None, None, None)
+        # tag::run[]
+        query = "What are some good science fiction movies and who stars in them?"
+        print(f"User: {query}\n")
+        print("Answer: ", end="", flush=True)
+        response = await agent.run(query, session=session)
+        print(response.text)
+        print()
+        # end::run[]
 
 asyncio.run(main())
