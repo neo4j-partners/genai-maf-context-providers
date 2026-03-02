@@ -44,6 +44,8 @@ async def record_example_trace(memory):
     return trace
 # end::record_trace[]
 
+# Lesson-only code snippet: included in the reasoning-memory lesson via
+# AsciiDoc tag but not executed at runtime. Demonstrates StreamingTraceRecorder.
 # tag::streaming_recorder[]
 from neo4j_agent_memory.memory.reasoning import StreamingTraceRecorder
 
@@ -114,5 +116,4 @@ async def main():
         await find_similar_example(memory)
         await tool_stats_example(memory_client)
 
-if __name__ == "__main__":
-    asyncio.run(main())
+asyncio.run(main())

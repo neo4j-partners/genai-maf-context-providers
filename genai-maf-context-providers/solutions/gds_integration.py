@@ -25,7 +25,7 @@ settings = MemorySettings(
 # tag::gds_config[]
 from neo4j_agent_memory.integrations.microsoft_agent import GDSConfig
 
-async def create_gds_memory(memory_client):
+def create_gds_memory(memory_client):
     memory = Neo4jMicrosoftMemory.from_memory_client(
         memory_client=memory_client,
         session_id="movie-gds-session",
@@ -43,7 +43,7 @@ async def create_gds_memory(memory_client):
 # end::gds_config[]
 
 # tag::gds_tools[]
-async def create_gds_tools(memory):
+def create_gds_tools(memory):
     tools = create_memory_tools(memory, include_gds_tools=True)
     return tools
 # end::gds_tools[]
@@ -51,8 +51,8 @@ async def create_gds_tools(memory):
 # tag::agent[]
 async def main():
     async with MemoryClient(settings) as memory_client:
-        memory = await create_gds_memory(memory_client)
-        tools = await create_gds_tools(memory)
+        memory = create_gds_memory(memory_client)
+        tools = create_gds_tools(memory)
 
         client = OpenAIResponsesClient()
 

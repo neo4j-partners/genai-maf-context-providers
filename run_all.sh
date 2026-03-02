@@ -16,6 +16,10 @@ scripts=(
   "graph_enriched_provider.py|Graph Enriched Provider (vector + graph traversal)"
   "memory_context_provider.py|Memory Context Provider (persistent memory)"
   "memory_tools_agent.py|Memory Tools Agent (memory tools + context provider)"
+  "hybrid_provider.py|Hybrid Provider (vector + fulltext combined search)"
+  "entity_extraction.py|Entity Extraction (POLE+O extraction pipeline)"
+  "reasoning_memory.py|Reasoning Memory (trace recording + tool stats)"
+  "gds_integration.py|GDS Integration (graph algorithms on memory)"
 )
 
 for entry in "${scripts[@]}"; do

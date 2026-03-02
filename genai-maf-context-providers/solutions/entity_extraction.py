@@ -28,6 +28,8 @@ settings = MemorySettings(
 )
 # end::settings[]
 
+# Lesson-only code snippet: included in the entity-extraction lesson via
+# AsciiDoc tag but not executed at runtime. Demonstrates merge_strategy config.
 # tag::merge_strategy[]
 settings_with_merge = MemorySettings(
     neo4j={
@@ -42,6 +44,8 @@ settings_with_merge = MemorySettings(
 )
 # end::merge_strategy[]
 
+# Lesson-only code snippet: included in the entity-extraction lesson via
+# AsciiDoc tag but not executed at runtime. Demonstrates resolution config.
 # tag::resolution[]
 settings_with_resolution = MemorySettings(
     neo4j={
@@ -65,10 +69,8 @@ async def add_manual_entity():
             name="Inception",
             entity_type="OBJECT",
             description="2010 science fiction film directed by Christopher Nolan",
-            confidence=0.95,
         )
         print(f"Added entity: {entity}")
 # end::manual_entity[]
 
-if __name__ == "__main__":
-    asyncio.run(add_manual_entity())
+asyncio.run(add_manual_entity())
