@@ -3,7 +3,7 @@ import os
 from typing import Any
 
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
 from agent_framework import (
     AgentSession,

@@ -4,7 +4,7 @@ import os
 import unittest
 
 from dotenv import load_dotenv, find_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
 class TestEnvironment(unittest.TestCase):
 

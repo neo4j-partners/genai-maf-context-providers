@@ -2,7 +2,7 @@ import asyncio
 import os
 
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
 from agent_framework.openai import OpenAIResponsesClient
 from agent_framework_neo4j import Neo4jContextProvider, Neo4jSettings

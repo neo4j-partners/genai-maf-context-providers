@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 @pytest.fixture(autouse=True)
 def load_env_vars():
-    load_dotenv()
+    load_dotenv(override=True)
 
 class TestHelpers:
     @staticmethod
