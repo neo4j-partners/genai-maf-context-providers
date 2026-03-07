@@ -26,7 +26,10 @@ settings = MemorySettings(
 
 # tag::memory[]
 async def main():
-    async with MemoryClient(settings) as memory_client:
+    memory_client = MemoryClient(settings)
+    await memory_client.connect()
+
+    try:
         # Create unified memory interface
         session_id = "movie-chat-session"
 
@@ -83,5 +86,7 @@ async def main():
         print("Entities:", results.get("entities", []))
         print("Preferences:", results.get("preferences", []))
         # end::search[]
+    finally:
+        await memory_client.close()
 
 asyncio.run(main())
