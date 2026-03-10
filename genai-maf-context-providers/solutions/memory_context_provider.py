@@ -29,6 +29,7 @@ settings = MemorySettings(
     extraction={
         "enable_gliner": False,  # GLiNER disabled: downloads ~500MB model from HuggingFace, impractical in a workshop
         "llm_model": llm_model,
+        "llm_temperature": 1.0,  # gpt-5-mini only supports temperature=1.0
     },
 )
 # end::settings[]

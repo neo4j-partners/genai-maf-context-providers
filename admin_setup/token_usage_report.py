@@ -418,15 +418,10 @@ def print_report(
     embed_price_azure = 0.02    # text-embedding-3-small per 1M tokens (Azure)
 
     openai_pricing = [
-        ("GPT-5 Nano (OpenAI)",  0.05,  0.40, embed_price_openai),
         ("GPT-5 Mini (OpenAI)",  0.25,  2.00, embed_price_openai),
-        ("GPT-4o-mini (OpenAI)", 0.15,  0.60, embed_price_openai),
-        ("GPT-4o (OpenAI)",      2.50, 10.00, embed_price_openai),
     ]
     azure_pricing = [
-        ("GPT-5 Nano (Azure)",  0.05,  0.40, embed_price_azure),
         ("GPT-5 Mini (Azure)",  0.25,  2.00, embed_price_azure),
-        ("GPT-4o (Azure)",      2.50, 10.00, embed_price_azure),
     ]
 
     all_pricing = openai_pricing + azure_pricing

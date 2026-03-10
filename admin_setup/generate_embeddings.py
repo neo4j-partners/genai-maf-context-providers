@@ -73,9 +73,9 @@ def main():
 
     print(f"Generated {len(all_embeddings)} embeddings")
 
-    # Save to CSV
+    # Save to CSV in the main project data directory
     data_dir = os.path.join(
-        os.path.dirname(__file__), "genai-maf-context-providers", "data"
+        os.path.dirname(__file__), "..", "genai-maf-context-providers", "data"
     )
     os.makedirs(data_dir, exist_ok=True)
     csv_path = os.path.join(data_dir, "movie_embeddings.csv")

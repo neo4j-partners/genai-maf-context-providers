@@ -28,6 +28,7 @@ settings = MemorySettings(
         "enable_llm_fallback": True,
         "confidence_threshold": 0.5,
         "llm_model": llm_model,
+        "llm_temperature": 1.0,  # gpt-5-mini only supports temperature=1.0
         "entity_types": [
             "PERSON", "ORGANIZATION", "LOCATION", "EVENT", "OBJECT"
         ],
