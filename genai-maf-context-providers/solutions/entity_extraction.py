@@ -72,7 +72,7 @@ settings_with_resolution = MemorySettings(
 # tag::manual_entity[]
 async def add_manual_entity():
     async with MemoryClient(settings) as memory_client:
-        entity = await memory_client.long_term.add_entity(
+        entity, dedup_result = await memory_client.long_term.add_entity(
             name="Inception",
             entity_type="OBJECT",
             description="2010 science fiction film directed by Christopher Nolan",
