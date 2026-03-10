@@ -91,7 +91,7 @@ python genai-maf-context-providers/solutions/simple_agent.py
 
 == Using Azure AI Foundry
 
-Instead of individual OpenAI API keys, instructors can deploy a shared Azure AI Foundry resource and distribute a single API key to all participants. By default this provisions a `gpt-5-mini` chat deployment. To also deploy the `text-embedding-ada-002` embedding model, set `deployEmbeddingModel` to `true` (see <<Deploy the infrastructure>>).
+Instead of individual OpenAI API keys, instructors can deploy a shared Azure AI Foundry resource and distribute a single API key to all participants. By default this provisions a `gpt-5-mini` chat deployment. To also deploy the `text-embedding-3-small` embedding model, set `deployEmbeddingModel` to `true` (see <<Deploy the infrastructure>>).
 
 === Prerequisites
 
@@ -149,7 +149,7 @@ LLM_PROVIDER="azure"
 AZURE_OPENAI_API_KEY="<key from instructor>"
 AZURE_OPENAI_ENDPOINT="<endpoint from instructor>"
 AZURE_OPENAI_RESPONSES_DEPLOYMENT_NAME="gpt-5-mini"
-AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME="text-embedding-ada-002"
+AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME="text-embedding-3-small"
 AZURE_OPENAI_API_VERSION="2025-03-01-preview"
 ----
 
@@ -198,6 +198,20 @@ bash admin_setup/run_all.sh --tokens --model gpt-5-mini
 # JSON output
 bash admin_setup/run_all.sh --tokens --model gpt-5-nano --json
 ----
+
+Use `--log <dir>` to save each solution's detailed output to a separate log file alongside the report. This is useful for comparing runs across models or investigating why token counts differ between runs.
+
+[source,sh]
+----
+# Save logs and report to a directory
+bash admin_setup/run_all.sh --tokens --model gpt-5-mini --log logs/mini-run
+
+# Compare two models
+bash admin_setup/run_all.sh --tokens --model gpt-5-mini --log logs/mini-run
+bash admin_setup/run_all.sh --tokens --model gpt-4o --log logs/4o-run
+----
+
+The log directory will contain one `.log` file per solution (e.g., `simple_agent.log`, `gds_integration.log`) with the full LLM conversation output, plus a `report.txt` (or `report.json` with `--json`) containing the token usage report.
 
 See link:TOKENS.md[TOKENS.md] for the latest results.
 

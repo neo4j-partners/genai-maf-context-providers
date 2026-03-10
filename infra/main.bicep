@@ -21,16 +21,13 @@ param chatDeploymentCapacity int = 120
 
 // Embedding model - must match pre-computed embeddings in movie_embeddings.csv
 @description('Name of the embedding model to deploy')
-param embeddingModelName string = 'text-embedding-ada-002'
+param embeddingModelName string = 'text-embedding-3-small'
 @description('Version of the embedding model to deploy')
-param embeddingModelVersion string = '2'
+param embeddingModelVersion string = '1'
 @description('SKU for the embedding deployment')
 param embeddingDeploymentSku string = 'GlobalStandard'
 @description('Capacity for the embedding deployment')
 param embeddingDeploymentCapacity int = 120
-
-@description('Optional. Set to true to deploy the embedding model')
-param deployEmbeddingModel bool = false
 
 var tags = { 'azd-env-name': environmentName }
 var resourceToken = toLower(uniqueString(resourceGroup().id, environmentName))
@@ -66,8 +63,8 @@ resource chatDeployment 'Microsoft.CognitiveServices/accounts/deployments@2025-0
   }
 }
 
-// Embedding model deployment (text-embedding-ada-002) — optional
-resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2025-09-01' = if (deployEmbeddingModel) {
+// Embedding model deployment (text-embedding-3-small)
+resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2025-09-01' = {
   parent: aiServices
   name: embeddingModelName
   dependsOn: [chatDeployment] // Deploy sequentially to avoid conflicts
@@ -91,4 +88,4 @@ output AZURE_TENANT_ID string = tenant().tenantId
 output AZURE_AI_SERVICES_ENDPOINT string = aiServices.properties.endpoint
 output AZURE_AI_SERVICES_NAME string = aiServices.name
 output AZURE_AI_MODEL_NAME string = chatDeployment.name
-output AZURE_AI_EMBEDDING_NAME string = deployEmbeddingModel ? embeddingDeployment.name : ''
+output AZURE_AI_EMBEDDING_NAME string = embeddingDeployment.name

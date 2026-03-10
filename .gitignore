@@ -52,5 +52,8 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+# Logs
+*.log
+
 # Azure Developer CLI (azd)
 .azure/

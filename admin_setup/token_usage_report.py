@@ -416,7 +416,7 @@ def print_report(
     # OpenAI: https://openai.com/api/pricing/
     # Azure:  https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/
     embed_price_openai = 0.02   # text-embedding-3-small per 1M tokens (OpenAI)
-    embed_price_azure = 0.10    # text-embedding-ada-002 per 1M tokens (Azure)
+    embed_price_azure = 0.02    # text-embedding-3-small per 1M tokens (Azure)
 
     openai_pricing = [
         ("GPT-5 Nano (OpenAI)",  0.05,  0.40, embed_price_openai),

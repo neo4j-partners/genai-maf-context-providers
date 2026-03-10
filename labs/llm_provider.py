@@ -33,11 +33,11 @@ def get_embedder():
     if get_provider() == "azure":
         from neo4j_graphrag.embeddings.openai import AzureOpenAIEmbeddings
         return AzureOpenAIEmbeddings(
-            model=os.getenv("AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME", "text-embedding-ada-002"),
+            model=os.getenv("AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME", "text-embedding-3-small"),
             api_key=os.getenv("AZURE_OPENAI_API_KEY"),
             azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
             api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2025-03-01-preview"),
         )
     else:
         from neo4j_graphrag.embeddings.openai import OpenAIEmbeddings
-        return OpenAIEmbeddings(model="text-embedding-ada-002")
+        return OpenAIEmbeddings(model="text-embedding-3-small")

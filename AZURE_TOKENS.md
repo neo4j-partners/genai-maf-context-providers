@@ -21,7 +21,7 @@ Token usage measured against a live Azure AI Services deployment using `gpt-5-mi
 
 ## Azure Cost Estimates
 
-Azure OpenAI **Global Standard** pricing is identical to OpenAI direct pricing. **Data Zone** deployments (EU/US data residency) add a ~10% premium. The only other difference is the embedding model — Azure uses `text-embedding-ada-002` ($0.10/1M tokens) while OpenAI uses `text-embedding-3-small` ($0.02/1M tokens).
+Azure OpenAI **Global Standard** pricing is identical to OpenAI direct pricing. **Data Zone** deployments (EU/US data residency) add a ~10% premium. Both Azure and OpenAI use `text-embedding-3-small` ($0.02/1M tokens).
 
 ### Azure AI Foundry Pricing — Per 1M Tokens (March 2026)
 

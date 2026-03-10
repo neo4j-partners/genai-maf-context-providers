@@ -82,7 +82,7 @@ set_env LLM_PROVIDER "azure"
 set_env AZURE_OPENAI_API_KEY "$API_KEY"
 set_env AZURE_OPENAI_ENDPOINT "$ENDPOINT"
 set_env AZURE_OPENAI_RESPONSES_DEPLOYMENT_NAME "gpt-5-mini"
-set_env AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME "text-embedding-ada-002"
+set_env AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME "text-embedding-3-small"
 set_env AZURE_OPENAI_API_VERSION "2025-03-01-preview"
 
 # Clean up sed backup file

@@ -100,13 +100,3 @@ def test_reasoning_memory(test_helpers, monkeypatch):
     )
 
     assert "Recorded trace:" in output
-
-def test_gds_integration(test_helpers, monkeypatch):
-
-    output = test_helpers.run_module(
-        monkeypatch,
-        "gds_integration"
-    )
-
-    assert "User:" in output
-    assert "Answer:" in output

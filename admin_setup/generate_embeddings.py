@@ -3,7 +3,7 @@ One-time script used to generate the movie plot embeddings CSV.
 
 This script was run once to create genai-maf-context-providers/data/movie_embeddings.csv.
 It fetches the top 500 rated movies from a Neo4j recommendations sandbox,
-generates embeddings using OpenAI's text-embedding-ada-002 model, and saves
+generates embeddings using OpenAI's text-embedding-3-small model, and saves
 the results as a CSV file.
 
 Students do NOT need to run this script. The pre-computed embeddings are
@@ -59,7 +59,7 @@ def main():
         )
 
         response = client.embeddings.create(
-            model="text-embedding-ada-002",
+            model="text-embedding-3-small",
             input=plots,
         )
 

@@ -1,0 +1,267 @@
+
+================================================================================
+  WORKSHOP TOKEN USAGE REPORT  (openai: gpt-5-mini)
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+  Simple Agent (hardcoded movie tool)
+  simple_agent.py  [OK]  (11.6s)
+────────────────────────────────────────────────────────────────────────────────
+  Endpoint       Model                             Input   Output    Total
+  ────────────────────────────────────────────────────────────────────
+  chat           streaming                           125       88      213
+  chat           streaming                           280      595      875
+  ────────────────────────────────────────────────────────────────────
+  SUBTOTAL                                           405      683    1,088
+
+────────────────────────────────────────────────────────────────────────────────
+  Simple Context Provider (user info memory)
+  simple_context_provider.py  [OK]  (49.7s)
+────────────────────────────────────────────────────────────────────────────────
+  Endpoint       Model                             Input   Output    Total
+  ────────────────────────────────────────────────────────────────────
+  chat           gpt-5-mini-2025-08-07                75      379      454
+  chat           gpt-5-mini-2025-08-07               132    1,164    1,296
+  chat           gpt-5-mini-2025-08-07               145      278      423
+  chat           gpt-5-mini-2025-08-07               136      147      283
+  chat           gpt-5-mini-2025-08-07               219      288      507
+  ────────────────────────────────────────────────────────────────────
+  SUBTOTAL                                           707    2,256    2,963
+
+────────────────────────────────────────────────────────────────────────────────
+  Fulltext Context Provider (Neo4j fulltext search)
+  fulltext_context_provider.py  [OK]  (13.2s)
+────────────────────────────────────────────────────────────────────────────────
+  Endpoint       Model                             Input   Output    Total
+  ────────────────────────────────────────────────────────────────────
+  chat           gpt-5-mini-2025-08-07             1,200      756    1,956
+  ────────────────────────────────────────────────────────────────────
+  SUBTOTAL                                         1,200      756    1,956
+
+────────────────────────────────────────────────────────────────────────────────
+  Vector Context Provider (Neo4j vector search)
+  vector_context_provider.py  [OK]  (20.0s)
+────────────────────────────────────────────────────────────────────────────────
+  Endpoint       Model                             Input   Output    Total
+  ────────────────────────────────────────────────────────────────────
+  chat           gpt-5-mini-2025-08-07             1,336      887    2,223
+  ────────────────────────────────────────────────────────────────────
+  SUBTOTAL                                         1,336      887    2,223
+
+────────────────────────────────────────────────────────────────────────────────
+  Graph Enriched Provider (vector + graph traversal)
+  graph_enriched_provider.py  [OK]  (21.2s)
+────────────────────────────────────────────────────────────────────────────────
+  Endpoint       Model                             Input   Output    Total
+  ────────────────────────────────────────────────────────────────────
+  chat           gpt-5-mini-2025-08-07               596    1,105    1,701
+  ────────────────────────────────────────────────────────────────────
+  SUBTOTAL                                           596    1,105    1,701
+
+────────────────────────────────────────────────────────────────────────────────
+  Memory Context Provider (persistent memory)
+  memory_context_provider.py  [OK]  (47.5s)
+────────────────────────────────────────────────────────────────────────────────
+  Endpoint       Model                             Input   Output    Total
+  ────────────────────────────────────────────────────────────────────
+  embeddings     text-embedding-3-small               13        0       13
+  embeddings     text-embedding-3-small               13        0       13
+  embeddings     text-embedding-3-small               13        0       13
+  embeddings     text-embedding-3-small               13        0       13
+  chat           gpt-5-mini-2025-08-07               706      828    1,534
+  embeddings     text-embedding-3-small               13        0       13
+  embeddings     text-embedding-3-small              372        0      372
+  embeddings     text-embedding-3-small                9        0        9
+  embeddings     text-embedding-3-small                9        0        9
+  embeddings     text-embedding-3-small                9        0        9
+  embeddings     text-embedding-3-small                9        0        9
+  chat           gpt-5-mini-2025-08-07             1,094      140    1,234
+  embeddings     text-embedding-3-small                9        0        9
+  embeddings     text-embedding-3-small               16        0       16
+  embeddings     text-embedding-3-small                8        0        8
+  embeddings     text-embedding-3-small                8        0        8
+  embeddings     text-embedding-3-small                8        0        8
+  embeddings     text-embedding-3-small                8        0        8
+  chat           gpt-5-mini-2025-08-07             1,128      687    1,815
+  embeddings     text-embedding-3-small                8        0        8
+  embeddings     text-embedding-3-small              241        0      241
+  embeddings     text-embedding-3-small                3        0        3
+  embeddings     text-embedding-3-small                3        0        3
+  embeddings     text-embedding-3-small                3        0        3
+  ────────────────────────────────────────────────────────────────────
+  SUBTOTAL                                         3,716    1,655    5,371
+
+────────────────────────────────────────────────────────────────────────────────
+  Memory Tools Agent (memory tools + context provider)
+  memory_tools_agent.py  [OK]  (44.2s)
+────────────────────────────────────────────────────────────────────────────────
+  Endpoint       Model                             Input   Output    Total
+  ────────────────────────────────────────────────────────────────────
+  embeddings     text-embedding-3-small               10        0       10
+  embeddings     text-embedding-3-small               10        0       10
+  embeddings     text-embedding-3-small               10        0       10
+  embeddings     text-embedding-3-small               10        0       10
+  chat           streaming                         1,019      664    1,683
+  embeddings     text-embedding-3-small               24        0       24
+  chat           streaming                         1,723       19    1,742
+  embeddings     text-embedding-3-small                1        0        1
+  chat           streaming                         1,789      340    2,129
+  embeddings     text-embedding-3-small                6        0        6
+  embeddings     text-embedding-3-small                6        0        6
+  embeddings     text-embedding-3-small                6        0        6
+  embeddings     text-embedding-3-small                6        0        6
+  chat           streaming                         1,526      121    1,647
+  embeddings     text-embedding-3-small                1        0        1
+  chat           streaming                         1,694       57    1,751
+  embeddings     text-embedding-3-small               14        0       14
+  embeddings     text-embedding-3-small               14        0       14
+  embeddings     text-embedding-3-small               14        0       14
+  embeddings     text-embedding-3-small               14        0       14
+  chat           streaming                         1,669      151    1,820
+  embeddings     text-embedding-3-small                1        0        1
+  chat           streaming                         1,867      246    2,113
+  embeddings     text-embedding-3-small                4        0        4
+  embeddings     text-embedding-3-small                4        0        4
+  embeddings     text-embedding-3-small                4        0        4
+  ────────────────────────────────────────────────────────────────────
+  SUBTOTAL                                        11,446    1,598   13,044
+
+────────────────────────────────────────────────────────────────────────────────
+  Hybrid Provider (vector + fulltext combined search)
+  hybrid_provider.py  [OK]  (22.3s)
+────────────────────────────────────────────────────────────────────────────────
+  Endpoint       Model                             Input   Output    Total
+  ────────────────────────────────────────────────────────────────────
+  chat           gpt-5-mini-2025-08-07             1,136      968    2,104
+  ────────────────────────────────────────────────────────────────────
+  SUBTOTAL                                         1,136      968    2,104
+
+────────────────────────────────────────────────────────────────────────────────
+  Entity Extraction (POLE+O extraction pipeline)
+  entity_extraction.py  [OK]  (7.0s)
+────────────────────────────────────────────────────────────────────────────────
+  Endpoint       Model                             Input   Output    Total
+  ────────────────────────────────────────────────────────────────────
+  embeddings     text-embedding-3-small                2        0        2
+  embeddings     text-embedding-3-small                3        0        3
+  embeddings     text-embedding-3-small                3        0        3
+  embeddings     text-embedding-3-small                2        0        2
+  embeddings     text-embedding-3-small                2        0        2
+  embeddings     text-embedding-3-small                1        0        1
+  embeddings     text-embedding-3-small                3        0        3
+  embeddings     text-embedding-3-small                2        0        2
+  embeddings     text-embedding-3-small                3        0        3
+  embeddings     text-embedding-3-small                4        0        4
+  embeddings     text-embedding-3-small                2        0        2
+  embeddings     text-embedding-3-small                2        0        2
+  embeddings     text-embedding-3-small                3        0        3
+  embeddings     text-embedding-3-small                2        0        2
+  embeddings     text-embedding-3-small                2        0        2
+  embeddings     text-embedding-3-small                2        0        2
+  ────────────────────────────────────────────────────────────────────
+  SUBTOTAL                                            38        0       38
+
+────────────────────────────────────────────────────────────────────────────────
+  Reasoning Memory (trace recording + tool stats)
+  reasoning_memory.py  [OK]  (4.2s)
+────────────────────────────────────────────────────────────────────────────────
+  Endpoint       Model                             Input   Output    Total
+  ────────────────────────────────────────────────────────────────────
+  embeddings     text-embedding-3-small                7        0        7
+  embeddings     text-embedding-3-small                5        0        5
+  embeddings     text-embedding-3-small                6        0        6
+  ────────────────────────────────────────────────────────────────────
+  SUBTOTAL                                            18        0       18
+
+────────────────────────────────────────────────────────────────────────────────
+  GDS Integration (graph algorithms on memory)
+  gds_integration.py  [FAILED]  (0.0s)
+────────────────────────────────────────────────────────────────────────────────
+  Error: [Errno 2] No such file or directory: '/Users/ryanknight/projects/graphacademy/genai-maf-context-providers/genai-maf-context-providers/solutions/gds_integration.py'
+
+================================================================================
+  SUMMARY
+================================================================================
+
+  Solution                                  API Calls      Input     Output      Total
+  ────────────────────────────────────────────────────────────────────────────────
+  simple_agent.py                                   2        405        683      1,088
+  simple_context_provider.py                        5        707      2,256      2,963
+  fulltext_context_provider.py                      1      1,200        756      1,956
+  vector_context_provider.py                        1      1,336        887      2,223
+  graph_enriched_provider.py                        1        596      1,105      1,701
+  memory_context_provider.py                       24      3,716      1,655      5,371
+  memory_tools_agent.py                            26     11,446      1,598     13,044
+  hybrid_provider.py                                1      1,136        968      2,104
+  entity_extraction.py                             16         38          0         38
+  reasoning_memory.py                               3         18          0         18
+  gds_integration.py                           FAILED                                 
+  ────────────────────────────────────────────────────────────────────────────────
+  TOTAL PER PARTICIPANT                            80     20,598      9,908     30,506
+
+================================================================================
+  COST ESTIMATE (approximate)
+================================================================================
+
+  Chat tokens:          29,503  (input: 19,595, output: 9,908)
+  Embedding tokens:      1,003
+  Total tokens:         30,506
+
+  Model                        Input $/1M  Output $/1M   Cost/Participant
+  ────────────────────────────────────────────────────────────────────
+  GPT-5 Nano (OpenAI)        $      0.05 $      0.40 $          0.0050
+  GPT-5 Mini (OpenAI)        $      0.25 $      2.00 $          0.0247
+  GPT-4o-mini (OpenAI)       $      0.15 $      0.60 $          0.0089
+  GPT-4o (OpenAI)            $      2.50 $     10.00 $          0.1481
+  GPT-5 Nano (Azure)         $      0.05 $      0.40 $          0.0050
+  GPT-5 Mini (Azure)         $      0.25 $      2.00 $          0.0248
+  GPT-4o (Azure)             $      2.50 $     10.00 $          0.1482
+
+================================================================================
+  HIGH USAGE SOLUTIONS (> 20% of total)
+================================================================================
+  ⚠  memory_tools_agent.py                      13,044 tokens (42.8%)
+       └─ chat (streaming): 2,129 tokens
+       └─ chat (streaming): 2,113 tokens
+       └─ chat (streaming): 1,820 tokens
+
+================================================================================
+  WORKSHOP PLANNING
+================================================================================
+
+  10 participants (305,060 tokens):
+    GPT-5 Nano (OpenAI)        $    0.05
+    GPT-5 Mini (OpenAI)        $    0.25
+    GPT-4o-mini (OpenAI)       $    0.09
+    GPT-4o (OpenAI)            $    1.48
+    GPT-5 Nano (Azure)         $    0.05
+    GPT-5 Mini (Azure)         $    0.25
+    GPT-4o (Azure)             $    1.48
+
+  25 participants (762,650 tokens):
+    GPT-5 Nano (OpenAI)        $    0.12
+    GPT-5 Mini (OpenAI)        $    0.62
+    GPT-4o-mini (OpenAI)       $    0.22
+    GPT-4o (OpenAI)            $    3.70
+    GPT-5 Nano (Azure)         $    0.13
+    GPT-5 Mini (Azure)         $    0.62
+    GPT-4o (Azure)             $    3.70
+
+  50 participants (1,525,300 tokens):
+    GPT-5 Nano (OpenAI)        $    0.25
+    GPT-5 Mini (OpenAI)        $    1.24
+    GPT-4o-mini (OpenAI)       $    0.45
+    GPT-4o (OpenAI)            $    7.40
+    GPT-5 Nano (Azure)         $    0.25
+    GPT-5 Mini (Azure)         $    1.24
+    GPT-4o (Azure)             $    7.41
+
+  100 participants (3,050,600 tokens):
+    GPT-5 Nano (OpenAI)        $    0.50
+    GPT-5 Mini (OpenAI)        $    2.47
+    GPT-4o-mini (OpenAI)       $    0.89
+    GPT-4o (OpenAI)            $   14.81
+    GPT-5 Nano (Azure)         $    0.50
+    GPT-5 Mini (Azure)         $    2.48
+    GPT-4o (Azure)             $   14.82
+
