@@ -7,8 +7,14 @@ load_dotenv(override=True)
 from pydantic import SecretStr
 
 from neo4j_agent_memory import MemoryClient, MemorySettings
+from llm_provider import get_provider
 
 # tag::settings[]
+if get_provider() == "azure":
+    llm_model = os.getenv("AZURE_OPENAI_RESPONSES_DEPLOYMENT_NAME", "gpt-5-mini")
+else:
+    llm_model = os.getenv("OPENAI_RESPONSES_MODEL_ID", "gpt-5-mini")
+
 settings = MemorySettings(
     neo4j={
         "uri": os.environ["NEO4J_URI"],
@@ -18,9 +24,10 @@ settings = MemorySettings(
     extraction={
         "extractor_type": "pipeline",
         "enable_spacy": True,
-        "enable_gliner": True,
+        "enable_gliner": False,  # GLiNER disabled: it downloads a ~500MB model from HuggingFace on first use, which is impractical in a workshop with many participants
         "enable_llm_fallback": True,
         "confidence_threshold": 0.5,
+        "llm_model": llm_model,
         "entity_types": [
             "PERSON", "ORGANIZATION", "LOCATION", "EVENT", "OBJECT"
         ],

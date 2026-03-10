@@ -27,13 +27,13 @@ failed_scripts=()
 scripts=(
   "simple_agent.py|Simple Agent (hardcoded movie tool)"
   "simple_context_provider.py|Simple Context Provider (user info memory)"
-  "fulltext_context_provider.py|Fulltext Context Provider (Neo4j fulltext search)"
   "vector_context_provider.py|Vector Context Provider (Neo4j vector search)"
   "graph_enriched_provider.py|Graph Enriched Provider (vector + graph traversal)"
-  "memory_context_provider.py|Memory Context Provider (persistent memory)"
-  "memory_tools_agent.py|Memory Tools Agent (memory tools + context provider)"
+  "fulltext_context_provider.py|Fulltext Context Provider (Neo4j fulltext search)"
   "hybrid_provider.py|Hybrid Provider (vector + fulltext combined search)"
   "entity_extraction.py|Entity Extraction (POLE+O extraction pipeline)"
+  "memory_context_provider.py|Memory Context Provider (persistent memory)"
+  "memory_tools_agent.py|Memory Tools Agent (memory tools + context provider)"
   "reasoning_memory.py|Reasoning Memory (trace recording + tool stats)"
 )
 
