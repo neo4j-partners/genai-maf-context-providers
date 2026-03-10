@@ -211,7 +211,7 @@ bash admin_setup/run_all.sh --tokens --model gpt-5-mini --log logs/mini-run
 bash admin_setup/run_all.sh --tokens --model gpt-4o --log logs/4o-run
 ----
 
-The log directory will contain one `.log` file per solution (e.g., `simple_agent.log`, `gds_integration.log`) with the full LLM conversation output, plus a `report.txt` (or `report.json` with `--json`) containing the token usage report.
+The log directory will contain one `.log` file per solution (e.g., `simple_agent.log`, `reasoning_memory.log`) with the full LLM conversation output, plus a `report.txt` (or `report.json` with `--json`) containing the token usage report.
 
 See link:TOKENS.md[TOKENS.md] for the latest results.
 

@@ -70,7 +70,8 @@ async def add_manual_entity():
             entity_type="OBJECT",
             description="2010 science fiction film directed by Christopher Nolan",
         )
-        print(f"Added entity: {entity}")
+        print(f"Added entity: name={entity.name}, type={entity.entity_type}, id={entity.id}")
+        await asyncio.sleep(5)
 # end::manual_entity[]
 
 asyncio.run(add_manual_entity())

@@ -54,10 +54,13 @@ async def main():
             name="movie-assistant",
             instructions=(
                 "You are a movie recommendation assistant with persistent memory.\n\n"
-                "When a user expresses a preference, save it with the "
-                "remember_preference tool. When making recommendations, "
-                "use recall_preferences to check what the user likes "
-                "before suggesting something.\n\n"
+                "IMPORTANT: You MUST call the remember_preference tool every time "
+                "a user states a preference, favorite, or interest. Do NOT just "
+                "acknowledge it verbally — you must actually invoke the tool to "
+                "persist it. For example, if a user says they love sci-fi, call "
+                "remember_preference with category='genre' and preference='loves sci-fi'.\n\n"
+                "When making recommendations, use recall_preferences to check "
+                "what the user likes before suggesting something.\n\n"
                 "You have access to a knowledge graph of movies and "
                 "your memory of past conversations."
             ),

@@ -35,7 +35,6 @@ scripts=(
   "hybrid_provider.py|Hybrid Provider (vector + fulltext combined search)"
   "entity_extraction.py|Entity Extraction (POLE+O extraction pipeline)"
   "reasoning_memory.py|Reasoning Memory (trace recording + tool stats)"
-  "gds_integration.py|GDS Integration (graph algorithms on memory)"
 )
 
 for entry in "${scripts[@]}"; do

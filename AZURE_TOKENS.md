@@ -16,8 +16,7 @@ Token usage measured against a live Azure AI Services deployment using `gpt-5-mi
 | hybrid_provider.py | 1 | 1,136 | 976 | 0 | **2,112** |
 | entity_extraction.py | 16 | 0 | 0 | 38 | **38** |
 | reasoning_memory.py | 3 | 0 | 0 | 18 | **18** |
-| gds_integration.py | 10 | 5,479 | 1,936 | 311 | **7,726** |
-| **TOTAL PER PARTICIPANT** | **90** | **23,639** | **10,697** | **1,333** | **~35,669** |
+| **TOTAL PER PARTICIPANT** | **80** | **18,160** | **8,761** | **1,022** | **~27,943** |
 
 ## Azure Cost Estimates
 
@@ -125,9 +124,8 @@ All project files use `2025-03-01-preview` as the default.
 
 ## High Usage Solutions
 
-- **memory_tools_agent.py** — 33% of total tokens (11,788), driven by 26 API calls across 3 multi-turn queries with streaming + memory tools
-- **gds_integration.py** — 22% of total tokens (7,726), multi-step graph algorithm workflow
-- **memory_context_provider.py** — 15% of total tokens (5,279), 24 API calls with entity extraction
+- **memory_tools_agent.py** — 42% of total tokens (11,788), driven by 26 API calls across 3 multi-turn queries with streaming + memory tools
+- **memory_context_provider.py** — 19% of total tokens (5,279), 24 API calls with entity extraction
 
 These are consistent with the OpenAI direct results in [TOKENS.md](TOKENS.md).
 

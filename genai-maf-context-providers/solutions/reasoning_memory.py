@@ -114,7 +114,7 @@ async def main():
         )
 
         trace = await record_example_trace(memory)
-        print(f"Recorded trace: {trace}")
+        print(f"Recorded trace: id={trace.id}, task={trace.task}, session={trace.session_id}")
 
         await find_similar_example(memory)
         await tool_stats_example(memory_client)

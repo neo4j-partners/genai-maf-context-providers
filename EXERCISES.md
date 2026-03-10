@@ -17,7 +17,6 @@
 | 8 | `hybrid_provider.py` | Mar 1 (NEW) | Mar 1 (NEW) | settings, embedder, provider, agent, run | Written from lesson content | Static — syntax + imports OK | **Needs live test** |
 | 9 | `entity_extraction.py` | Mar 1 (NEW) | Mar 2 (fix) | settings, merge_strategy, resolution, manual_entity | Written from lesson content | Static — syntax + imports OK | **Bug fixed** (removed `confidence=0.95`). Needs live test |
 | 10 | `reasoning_memory.py` | Mar 1 (NEW) | Mar 2 (comment) | record_trace, streaming_recorder, find_similar, tool_stats | Written from lesson content | Static — syntax + imports OK | **Needs live test** |
-| 11 | `gds_integration.py` | Mar 1 (NEW) | Mar 2 (fix) | gds_config, gds_tools, agent, run | Written from lesson content | Static — syntax + imports OK | **Bug fixed** (removed unnecessary `async`). Needs live test |
 
 ### Files without pairs
 
@@ -25,13 +24,13 @@
 |------|------|-------|
 | `setup.py` | Utility (skeleton dir) | Loads embeddings, creates indexes. No solution needed. |
 | `test_environment.py` | Utility (skeleton dir) | Validates OpenAI + Neo4j connections. No solution needed. |
-| `test_solutions.py` | Tests (solutions dir) | All 11 tests (updated Mar 2). pytest collects all 11. |
+| `test_solutions.py` | Tests (solutions dir) | All 10 tests (updated Mar 10). pytest collects all 10. |
 
 ---
 
 ## API Verification Results (against installed packages)
 
-Verified the 4 NEW solution files against the actual `neo4j-agent-memory>=0.0.4` package APIs.
+Verified the 3 NEW solution files against the actual `neo4j-agent-memory>=0.0.4` package APIs.
 
 ### hybrid_provider.py — API Verified OK
 
@@ -70,13 +69,6 @@ All imports and method calls match:
 
 Note: `from neo4j_agent_memory.memory.reasoning import StreamingTraceRecorder` works — same class as top-level export.
 
-### gds_integration.py — API Verified OK
-
-- `GDSConfig(enabled, use_pagerank_for_ranking, pagerank_weight)` ✅
-- `Neo4jMicrosoftMemory.from_memory_client(memory_client, session_id, gds_config=...)` — `__init__` accepts `gds_config: GDSConfig | None` ✅
-- `create_memory_tools(memory, include_gds_tools=True)` ✅
-- Agent creation pattern matches original 7 solutions ✅
-
 ---
 
 ## Bugs Fixed (Mar 2)
@@ -91,19 +83,13 @@ Note: `from neo4j_agent_memory.memory.reasoning import StreamingTraceRecorder` w
 
 **File:** `genai-maf-context-providers/solutions/test_solutions.py`
 **Problem:** Only 7 test functions (for original solutions).
-**Fix applied:** Added 4 test functions: `test_hybrid_provider`, `test_entity_extraction`, `test_reasoning_memory`, `test_gds_integration`. Follows `genai-integration-langchain` assertion patterns. pytest now collects all 11 tests.
+**Fix applied:** Added 3 test functions: `test_hybrid_provider`, `test_entity_extraction`, `test_reasoning_memory`. Follows `genai-integration-langchain` assertion patterns. pytest now collects all 10 tests.
 
-### 3. gds_integration.py — unnecessary async wrappers — FIXED
-
-**File:** `genai-maf-context-providers/solutions/gds_integration.py` lines 28, 46
-**Problem:** `create_gds_memory()` and `create_gds_tools()` were `async def` but both `Neo4jMicrosoftMemory.from_memory_client()` and `create_memory_tools()` are synchronous.
-**Fix applied:** Changed both to regular `def` and removed `await` from call sites in `main()`.
-
-### 4. run_all.sh — missing files 8–11 — FIXED
+### 3. run_all.sh — missing files 8–10 — FIXED
 
 **File:** `run_all.sh`
 **Problem:** Only ran original 7 solutions.
-**Fix applied:** Added 4 new entries to the `scripts` array.
+**Fix applied:** Added 3 new entries to the `scripts` array.
 
 ### 5. Lesson-only code snippets lacked documentation — FIXED
 
@@ -125,14 +111,13 @@ Note: `from neo4j_agent_memory.memory.reasoning import StreamingTraceRecorder` w
 
 - [x] **Fix bug:** Remove `confidence=0.95` from `entity_extraction.py` solution — **DONE Mar 2**
 - [x] **Update lesson:** Verify entity-extraction lesson.adoc accuracy re: confidence scores — **Lesson prose is correct** (confidence comes from extraction pipeline). See Open Questions #6.
-- [x] **Fix bug:** Remove `async` from `create_gds_memory()` and `create_gds_tools()` in `gds_integration.py` — **DONE Mar 2**
-- [x] **Add tests:** Added 4 test functions to `test_solutions.py` for files 8–11 — **DONE Mar 2** (pytest collects 11 tests)
-- [x] **Update `run_all.sh`:** Added 4 new solution entries — **DONE Mar 2**
+- [x] **Add tests:** Added 3 test functions to `test_solutions.py` for files 8–10 — **DONE Mar 2** (pytest collects 10 tests)
+- [x] **Update `run_all.sh`:** Added 3 new solution entries — **DONE Mar 2**
 - [x] **Add comments:** Added lesson-only comments to tagged blocks in entity_extraction.py and reasoning_memory.py — **DONE Mar 2**
-- [x] **Static verification:** All 11 solutions + 4 skeletons pass syntax check, all imports resolve, all API signatures verified against installed packages (Python 3.12.12) — **DONE Mar 2**
+- [x] **Static verification:** All 10 solutions + 3 skeletons pass syntax check, all imports resolve, all API signatures verified against installed packages (Python 3.12.12) — **DONE Mar 2**
 - [x] **Fix bug:** Removed `if __name__ == "__main__":` guard from entity_extraction.py and reasoning_memory.py (broke test harness) — **DONE Mar 2**
-- [x] **Run `run_all.sh`:** All 11 solutions passed against live Neo4j sandbox — **DONE Mar 2** (11 passed, 0 failed)
-- [x] **Run pytest:** All 11 tests passed — **DONE Mar 2** (11 passed, 35 warnings, 0 failures, 82.99s)
+- [x] **Run `run_all.sh`:** All 10 solutions passed against live Neo4j sandbox — **DONE Mar 2** (10 passed, 0 failed)
+- [x] **Run pytest:** All 10 tests passed — **DONE Mar 2** (10 passed, 35 warnings, 0 failures, 82.99s)
 - [ ] **Push companion repo:** Commit fixes and push to `neo4j-partners/genai-maf-context-providers`
 
 ### Should Do
@@ -140,7 +125,6 @@ Note: `from neo4j_agent_memory.memory.reasoning import StreamingTraceRecorder` w
 - [ ] **Run `hybrid_provider.py`** against sandbox — verify it returns results using both vector + fulltext indexes
 - [ ] **Run `entity_extraction.py`** against sandbox — verify entity creation and extraction pipeline
 - [ ] **Run `reasoning_memory.py`** against sandbox — verify trace recording and retrieval
-- [ ] **Run `gds_integration.py`** against sandbox — verify GDS tools work (or fall back gracefully)
 
 ### Nice to Have
 
@@ -154,8 +138,8 @@ Note: `from neo4j_agent_memory.memory.reasoning import StreamingTraceRecorder` w
 ### 1. `run_all.sh` missing files 8–11 — RESOLVED
 
 **File:** `run_all.sh`
-**Problem:** The script only runs the original 7 solutions. The 4 new files (hybrid_provider, entity_extraction, reasoning_memory, gds_integration) are not included.
-**Resolution:** Update `run_all.sh` to include all 11 files. Add the 4 new entries to the `scripts` array.
+**Problem:** The script only runs the original 7 solutions. The 3 new files (hybrid_provider, entity_extraction, reasoning_memory) are not included.
+**Resolution:** Update `run_all.sh` to include all 10 files. Add the 3 new entries to the `scripts` array.
 
 ### 2. Test assertions for files 8–11 need different output patterns — RESOLVED
 
@@ -171,7 +155,6 @@ Apply as follows:
 | `hybrid_provider.py` | `assert "User:" in output` and `assert "Answer:" in output` (matches existing pattern) |
 | `entity_extraction.py` | `assert "Added entity:" in output` |
 | `reasoning_memory.py` | `assert "Recorded trace:" in output` or `assert output > ""` |
-| `gds_integration.py` | `assert "User:" in output` and `assert "Answer:" in output` (matches existing pattern) |
 
 ### 3. `reasoning_memory.py` — `streaming_example()` is defined but never called — RESOLVED
 
@@ -193,14 +176,7 @@ Apply as follows:
 
 Each tagged block is a self-contained code snippet for the lesson. Only `manual_entity` runs in `main()` because the other settings are configuration examples, not executable demos. **No fix needed.**
 
-### 5. `gds_integration.py` — `create_gds_tools()` is unnecessarily async — RESOLVED
-
-**File:** `genai-maf-context-providers/solutions/gds_integration.py` lines 46–49
-**Problem:** `create_gds_tools(memory)` is declared `async def` but the inner call is not awaited.
-
-**Resolution:** Verified that `create_memory_tools()` is **synchronous** (signature: `def create_memory_tools(memory, include_gds_tools=True) -> list[FunctionTool]`). The `async` wrapper is a no-op. **Fix:** Remove `async` from the wrapper to follow best practices, since the function contains no awaitable calls.
-
-### 6. entity_extraction lesson confidence claim — RESOLVED
+### 5. entity_extraction lesson confidence claim — RESOLVED
 
 **Problem:** EXERCISES.md bug #1 noted the lesson says "Each entity node stores the ... confidence score" and questioned whether this was accurate given the `add_entity()` bug.
 
@@ -212,19 +188,18 @@ Each tagged block is a self-contained code snippet for the lesson. Only `manual_
 ### Phase 1: Fix Known Bugs (no sandbox needed) — COMPLETE Mar 2
 
 1. ~~Fix `confidence=0.95` bug in `entity_extraction.py` solution~~ — DONE
-2. ~~Fix `async` wrappers in `gds_integration.py` solution~~ — DONE
 3. ~~Update corresponding skeleton if needed~~ — Not needed (skeleton has TODOs only)
 4. ~~Verify lesson.adoc accuracy for the confidence claim~~ — Lesson prose is correct
 5. ~~Add lesson-only comments to tagged blocks~~ — DONE
 
 ### Phase 2: Static Verification (no sandbox needed) — COMPLETE Mar 2
 
-1. ~~AST syntax check all 12 files (11 solutions + test file)~~ — All pass
-2. ~~AST syntax check all 4 skeleton files~~ — All pass
-3. ~~Verify all imports resolve against installed packages~~ — All 13 imports resolve
+1. ~~AST syntax check all 11 files (10 solutions + test file)~~ — All pass
+2. ~~AST syntax check all 3 skeleton files~~ — All pass
+3. ~~Verify all imports resolve against installed packages~~ — All 12 imports resolve
 4. ~~Verify API signatures match solution code~~ — All verified (sync/async, params)
 5. ~~Verify installed package versions satisfy requirements.txt~~ — All 12 packages OK
-6. ~~Verify pytest discovers all 11 tests~~ — `pytest --collect-only` shows 11 items
+6. ~~Verify pytest discovers all 10 tests~~ — `pytest --collect-only` shows 10 items
 7. ~~Python version~~ — 3.12.12 (matches devcontainer spec of 3.12)
 
 ### Phase 3: Live Testing (requires Neo4j sandbox + OpenAI key)
@@ -243,12 +218,11 @@ Each tagged block is a self-contained code snippet for the lesson. Only `manual_
    python solutions/memory_context_provider.py
    python solutions/memory_tools_agent.py
    ```
-5. Run 4 NEW solutions:
+5. Run 3 NEW solutions:
    ```bash
    python solutions/hybrid_provider.py
    python solutions/entity_extraction.py
    python solutions/reasoning_memory.py
-   python solutions/gds_integration.py
    ```
 6. Run full test suite:
    ```bash
