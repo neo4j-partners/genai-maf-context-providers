@@ -88,7 +88,7 @@ async def main():
 
         # tag::verify[]
         results = await memory.search_memory(
-            query="user preferences and interests",
+            query="Christopher Nolan movies space",
             include_messages=True,
             include_entities=True,
             include_preferences=True,
