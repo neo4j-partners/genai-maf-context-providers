@@ -1,5 +1,4 @@
 import asyncio
-import gc
 import os
 
 from dotenv import load_dotenv
@@ -80,8 +79,7 @@ async def add_manual_entity():
             description="2010 science fiction film directed by Christopher Nolan",
         )
         print(f"Added entity: name={entity.name}, type={entity.entity_type}, id={entity.id}")
-    gc.collect()
-    await asyncio.sleep(0.1)
+        await asyncio.sleep(5)
 # end::manual_entity[]
 
 asyncio.run(add_manual_entity())
