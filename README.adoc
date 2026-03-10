@@ -223,3 +223,10 @@ One-time script used to generate `genai-maf-context-providers/data/movie_embeddi
 ----
 .venv/bin/python admin_setup/generate_embeddings.py
 ----
+
+After generating new embeddings, reload them into Neo4j by re-running the setup script:
+
+[source,sh]
+----
+.venv/bin/python genai-maf-context-providers/setup.py
+----
